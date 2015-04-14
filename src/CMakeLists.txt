@@ -4,7 +4,7 @@ project (TestOffload)
 
 # Allow CMake to find custom modules 
 set (CMAKE_MODULE_PATH ../CMakeModules)
-set (ICC_COMP_FLAGS "-tbb -std=c++0x")
+set (ICC_COMP_FLAGS "-ltbb -std=c++0x")
 set (NOTHASLAMBDA 1)
 
 # Run FindTBB.cmake module and include found directories
@@ -21,7 +21,9 @@ include_directories(../input)
 #	)
 
 # Set the cxx compiler to icc
-set (CMAKE_CXX_COMPILER /opt/intel/composer_xe_2015.1.133/bin/intel64/icc)
+if( NOT APPLE AND NOT MSVC )
+    set (CMAKE_CXX_COMPILER /opt/intel/composer_xe_2015.1.133/bin/intel64/icc)
+endif()
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${ICC_COMP_FLAGS}")
 include (../CMakeModules/CheckCXX11Features.cmake)
 

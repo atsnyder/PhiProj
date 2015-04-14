@@ -62,15 +62,17 @@ if( MSVC )
     else( )
         set(TBB_COMPILER "vc11")
     endif( )
+else(APPLE)
+    message("OSX found")
     #else()
-    #	message("Using gcc4.4")
-    #	set(TBB_COMPILER "gcc4.4")
+    #message("Using gcc4.4")
+    #set(TBB_COMPILER "gcc4.4")
 endif( )
 
 #Find TBB header files
 find_path( TBB_ROOT
         NAMES include/tbb/tbb.h
-        PATHS /usr/local /opt/intel/tbb
+	PATHS /usr/local/tbb /opt/intel/tbb /usr/local/Cellar/tbb/4*
         DOC "TBB header file path"
 )
 if ( NOT TBB_ROOT )
@@ -86,14 +88,16 @@ if ( NOT TBB_ROOT )
     message( "TBB install not found in the system.")
 else ( )
     # Search for 64bit libs if FIND_LIBRARY_USE_LIB64_PATHS is set to true in the global environment, 32bit libs else
-    get_property( LIB64 GLOBAL PROPERTY FIND_LIBRARY_USE_LIB64_PATHS )
+    
+    if( NOT APPLE )
+        get_property( LIB64 GLOBAL PROPERTY FIND_LIBRARY_USE_LIB64_PATHS )
 
-    if( LIB64 )
-        set(TBB_ARCH_PLATFORM intel64)
-    else( )
-        set(TBB_ARCH_PLATFORM ia32)
-    endif( )
-
+        if( LIB64 )
+            set(TBB_ARCH_PLATFORM intel64)
+        else( )
+            set(TBB_ARCH_PLATFORM ia32)
+        endif( )
+    endif()
 
     #Find TBB header files
     find_path( TBB_INCLUDE_DIRS
