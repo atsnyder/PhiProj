@@ -10,9 +10,15 @@
 using namespace std;
 using namespace tbb;
 
+#ifdef __MIC__
 __attribute__((target(mic))) struct testStruct{
 	float* numArr;
 } tS;
+#else
+struct testStruct{
+	float* numArr;
+} tS;
+#endif
 
 int main(){
 
