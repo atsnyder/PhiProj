@@ -13,7 +13,11 @@ include_directories(../headers)
 include_directories(../input)
 
 # Set the cxx compiler to icc
-#set (CMAKE_CXX_COMPILER /opt/intel/composer_xe_2015.1.133/bin/intel64/icc)
+if( NOT APPLE AND NOT MSVC )
+    set (CMAKE_CXX_COMPILER /opt/intel/composer_xe_2015.1.133/bin/intel64/icc)
+endif()
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${ICC_COMP_FLAGS}")
+include (../CMakeModules/CheckCXX11Features.cmake)
 
 # Add a new target and set target flag as well as target libraries
 add_executable (testProg test_mult_tbb_lambda.cpp)
