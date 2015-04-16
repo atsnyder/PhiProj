@@ -19,7 +19,7 @@ include_directories(../input)
 
 # Set the cxx compiler to icc
 if( NOT APPLE AND NOT MSVC )
-    set (CMAKE_CXX_COMPILER /opt/intel/composer_xe_2015.1.133/bin/intel64/icc)
+    set (CMAKE_CXX_COMPILER /opt/intel/bin/icpc)
 endif()
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${ICC_COMP_FLAGS}")
 include (../CMakeModules/CheckCXX11Features.cmake)
