@@ -9,6 +9,7 @@ if(APPLE)
 else( )
 	set (ICC_COMP_FLAGS "-tbb")
 endif( )
+set (ICC_COMP_FLAGS "${ICC_COMP_FLAGS} -std=c++0x")
 
 # Run FindTBB.cmake module and include found directories
 find_package(TBB REQUIRED)
@@ -32,9 +33,6 @@ if(CMAKE_VERSION VERSION_GREATER 3.1.0 OR CMAKE_VERSION VERSION_EQUAL 3.1.0)
 	set_property(TARGET testProg PROPERTY CMAKE_CXX_STANDARD_REQUIRED ON)
 	message("C++11 Standard Set")
 else()
-	#set C++11 flag
-	set (ICC_COMP_FLAGS "${ICC_COMP_FLAGS} -std=c++0x")
-
 	#add CXX11 check script
 	include (${CMAKE_MODULE_PATH}/CheckCXX11Features.cmake)
 
