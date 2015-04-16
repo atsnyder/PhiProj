@@ -4,7 +4,11 @@ project (TestOffload)
 
 # Allow CMake to find custom modules 
 set (CMAKE_MODULE_PATH ../CMakeModules)
-#set (ICC_COMP_FLAGS "-tbb")
+if(APPLE)
+	set (ICC_COMP_FLAGS "-ltbb")
+else( )
+	set (ICC_COMP_FLAGS "-tbb")
+endif( )
 
 # Run FindTBB.cmake module and include found directories
 find_package(TBB REQUIRED)
