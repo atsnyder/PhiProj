@@ -10,7 +10,7 @@
 using namespace std;
 using namespace tbb;
 
-__declspec(target(mic)) struct testStruct{
+__attribute__((target(mic))) struct testStruct{
 	float* numArr;
 } tS;
 
@@ -65,4 +65,5 @@ int main(){
 	writer.close();
 	cout << "Output Complete!" << endl;
 	//File Output End
-}	
+}
+
